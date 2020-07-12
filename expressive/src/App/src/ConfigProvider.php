@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace App;
 
+use ContainerInteropDoctrine\EntityManagerFactory;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Mapping\Entity;
+
 /**
  * The configuration provider for the App module
  *
@@ -36,6 +40,7 @@ class ConfigProvider
                 Handler\PingHandler::class => Handler\PingHandler::class,
             ],
             'factories'  => [
+                EntityManager::class => EntityManagerFactory::class,
                 Handler\HomePageHandler::class => Handler\HomePageHandlerFactory::class,
             ],
         ];
