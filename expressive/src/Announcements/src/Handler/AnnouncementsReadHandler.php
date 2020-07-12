@@ -58,6 +58,15 @@ class AnnouncementsReadHandler implements RequestHandlerInterface
         $result['_links']['create']   = $this->urlHelper->generate('announcements.create');
         $result['_links']['read']     = $this->urlHelper->generate('announcements.read', ['page' => 1]);
 
+        // add record specific hypermedia links
+        foreach ($records as $key => $value) {
+            $records[$key]['_links']['self'] = $this->urlHelper->generate('announcements.view', ['id' => $value['id']]);
+            $records[$key]['_links']['update'] = $this->urlHelper->generate('announcements.update', ['id' =>
+                $value['id']]);
+            $records[$key]['_links']['delete'] = $this->urlHelper->generate('announcements.delete', ['id' =>
+                $value['id']]);
+        }
+
         $result['_embedded']['Announcements'] = $records;
 
         return new JsonResponse($result);
